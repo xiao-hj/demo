@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,height=device-height"/>
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<meta name="format-detection" content="address=no;">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<script src="http://apps.bdimg.com/libs/jquery/1.8.0/jquery.min.js"></script>
+<style>
+*{line-height: 40px;list-style: none; box-sizing: border-box; font-size: 14px;padding:0px;margin:0px;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);-webkit-touch-callout: none;outline:none;}
+html,body{background: #fff;}
+:focus,button,input,select,textarea{outline:0;}
+ul,li{margin: 0px;padding:0px; }
+.scroll_num{font-size:40px;font-family:"microsoft yahei"; margin:80px auto; text-align: center;height: 40px;line-height: 40px;overflow: hidden;position: relative; }
+.scroll_num ul{ width: 30px;float: left;}
+.scroll_num li{font-size: 40px;display: block;text-align: center;width: 100%}
+ .demo{width: 200px;height: 200px;border: 1px solid #f00;}
+}
+</style>
+</head>
+<body>
+
+<div class="scroll_num">
+	<ul data-num="5">
+		<li>0</li>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+	</ul>
+	<ul data-num="8">
+		<li>0</li>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+	</ul>
+	<ul data-num="0">
+		<li>0</li>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+	</ul>
+	<ul data-num="4">
+		<li>0</li>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+	</ul>
+</div>
+<script>
+	function scrollNum(){
+		var liH = $(".scroll_num li").height();
+		
+		$(".scroll_num ul").each(function(){
+			var m = $(this).data("num");
+			var index = $(this).index()+1;
+			$(this).animate({
+			  num:liH*m+liH*index*10  //滚到当前数字的值 + 滚index圈的值，相当于多滚一圈
+			 }, {
+			  step: function(n) {  //n:分多少步,系统自动计算
+			    $(this).css("marginTop", -n%(liH*10)); //一步滚多少,%取模，滚到最大值时重新取值
+			    console.log("步骤："+n)
+			    console.log("滚动："+-n%(liH*10)) //注意这里滚到最大值后又重新开始了
+			  },
+			  duration:index*300 //用时多久完成整个动画，得到步骤step
+			 });
+		})
+	}
+	
+	scrollNum();
+</script>
+</body>
+</html>
