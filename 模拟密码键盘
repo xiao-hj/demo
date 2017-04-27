@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">	
+<meta name="viewport" content="initial-scale=1.0,width=device-width" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<title></title>
+<script src="http://apps.bdimg.com/libs/jquery/1.8.0/jquery.min.js"></script>
+<style>
+*{line-height: 30px;list-style: none; font-size: 14px;}
+:focus,button,input,select,textarea{outline:0;}
+ul{margin:0px;padding:0px;}
+table{ margin:0px auto; }
+input{opacity: 0;position: absolute;top:0px;left:0px;}
+td{padding:5px 20px;border:1px solid #ccc; width: 20px;text-align: center;}
+td:active{ background: #f3f3f3; }
+.pw_box{width: 240px; position: relative; margin:20px auto;height: 30px;}
+ul{ width: 240px;border-left:1px solid #ccc;border-top:1px solid #ccc;overflow: hidden;}
+li{border-right: 1px solid #ccc;border-bottom:1px solid #ccc;width: 40px;line-height: 30px;height: 30px; text-align: center;box-sizing: border-box;float: left;}
+.pw_list{position: absolute;top:0px;left:0px;overflow: hidden;}
+.pw_list em{ width: 40px; height: 30px; float: left; font-style: normal;text-align: center; }
+
+
+</style>
+</head>
+<body>
+<div class="pw_box">
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<div class="pw_list"></div>
+	<input type="password">
+</div>	
+<table>
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+	</tr>
+	<tr>
+		<td>4</td>
+		<td>5</td>
+		<td>6</td>
+	</tr>
+	<tr>
+		<td>7</td>
+		<td>8</td>
+		<td>9</td>
+	</tr>
+	<tr>
+		<td>C</td>
+		<td>0</td>
+		<td>←</td>
+	</tr>
+</table>
+	
+<script>
+$(function(){
+// 方法一	
+	/*$("td").click(function(){
+		var len = $(".pw_list em").length;
+		// 后退
+		if($(this).html()=="←"){
+			var emLenSum = (len+1)*10; //一个em为10个符
+			emLenSum-10;
+			$("input").val($("input").val().substring(0,len-1));
+			$(".pw_list").html($(".pw_list").html().substring(0,emLenSum-20));
+			return false
+		// 清除	
+		}else if($(this).html()=="C"){
+			$("input").val("");
+			$(".pw_list").html("");
+		// 控制6位密码	
+		}else if(len>5){
+			return false
+		}else{
+			$("input").val($("input").val()+$(this).html());
+			$(".pw_list").html($(".pw_list").html()+"<em>●</em>")	
+		}
+	})*/
+
+
+// 方法二
+	var i = 0;
+	$("td").click(function(){
+		// 后退
+		if($(this).html()=="←"){
+			i=i-1;
+			$("input").val($("input").val().substring(0,i));
+			$(".pw_box li").html("");
+			for(var v=1;v<=i;v++){
+				$(".pw_box li:nth-child("+v+")").append('●');
+			}
+			return false
+		// 清除	
+		}else if($(this).html()=="C"){
+			$("input").val("");
+			$(".pw_box li").html("");
+			i=0;
+		// 控制6位密码	
+		}else if(i>5){
+			return false
+		}else{
+			i++;
+			$("input").val($("input").val()+$(this).html());
+			$(".pw_box li:nth-child("+i+")").append('●');
+		}
+	})
+
+})
+
+</script>
+</body>
+</html>
